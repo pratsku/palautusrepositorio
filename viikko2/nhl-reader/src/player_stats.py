@@ -1,0 +1,14 @@
+class PlayerStats:
+    def __init__(self, reader):
+        self.reader = reader
+
+    def top_scorers_by_nationality(self, nationality):
+        players = self.reader.get_players()
+
+        nationality_players = filter(
+            lambda player: player.nationality == nationality, players)
+
+        sorted_players = sorted(
+            nationality_players, key=lambda player: player.goals + player.assists, reverse=True)
+
+        return sorted_players
