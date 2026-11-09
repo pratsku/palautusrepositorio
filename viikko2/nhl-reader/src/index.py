@@ -1,25 +1,25 @@
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.table import Table
+
 from player_reader import PlayerReader
 from player_stats import PlayerStats
-
-from rich.console import Console
-from rich.table import Table
-from rich.prompt import Prompt
 
 
 def main():
     console = Console()
 
     season = Prompt.ask("Season", default="2024-25")
-    nationality = Prompt.ask("Nationality", default="FIN")
+    team = Prompt.ask("Team", default="DAL")
 
     url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
 
     reader = PlayerReader(url)
     stats = PlayerStats(reader)
 
-    players = stats.top_scorers_by_nationality(nationality)
+    players = stats.top_scorers_by_team(team)
 
-    table = Table(title=f"Players from {nationality}")
+    table = Table(title=f"Players from {team}")
 
     table.add_column("Name", style="cyan")
     table.add_column("Team", style="magenta")
